@@ -1,9 +1,19 @@
-# Embedded RTOS Simulator — C
+
+
+<div align="center">
+  
+# ⚡ Embedded RTOS Simulator in C  
+**A Learning Project for Real-Time OS Concepts, Task Scheduling, and Embedded Systems**  
+
 
 ![Build Status](https://github.com/hitesh-bhatnagar/Embedded-RTOS-Simulator-C-Learning-Project/actions/workflows/ci.yml/badge.svg)
+[![GitHub Repo](https://img.shields.io/badge/View%20on-GitHub-blue?style=for-the-badge&logo=github)](https://github.com/hitesh-bhatnagar/Embedded-RTOS-Simulator-C-Learning-Project)
+[![Made with C](https://img.shields.io/badge/Made%20with-C-00599C?style=for-the-badge&logo=c)](https://en.wikipedia.org/wiki/C_(programming_language))
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)](LICENSE)
 
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![Language](https://img.shields.io/badge/language-C-555.svg)](#)
+</div>
+
+---
 
 > **Embedded RTOS Simulator** — small, realistic RTOS kernel written in C for learning and interviews.  
 > Implements a preemptive priority scheduler, message queues (strings), semaphores, simulated UART, shell CLI, timer & interrupt simulation, logging and diagnostics — no hardware required.
@@ -16,15 +26,14 @@
 - [Features](#features)  
 - [Architecture & design](#architecture--design)  
 - [Build & run (quickstart)](#build--run-quickstart)  
-- [Shell / CLI commands](#shell--cli-commands)  
+- [Shell / Command Line Interface](#shell--command-line-interface)  
 - [Example session](#example-session)  
 - [Tests and CI](#tests-and-ci)  
 - [Project structure](#project-structure)  
 - [Limitations & future work](#limitations--future-work)  
 - [Contributing](#contributing)  
 - [License](#license)  
-- [Resume blurb](#resume-blurb)  
-- [Contact](#contact)
+
 
 ---
 
@@ -65,7 +74,7 @@ This repository is built to teach the core concepts of operating systems and rea
 
 ---
 
-## Architecture
+## Architecture & design
 
 High-level components:
 
@@ -76,6 +85,30 @@ High-level components:
 - **IPC**: circular queue for string messages
 - **Shell**: user-facing CLI to control runtime
 
+
+```plaintext
++--------------------------------------------------+
+|                    Shell Task                   |
+| (User Commands: list, send, kill, pause, etc.)   |
++--------------------------------------------------+
+               |              |  
+               v              v  
++---------------------+   +---------------------+
+|   Sensor Reader     |   |    LED Blinker      |
+| (Simulated sensors) |   | (Status LED toggle) |
++---------------------+   +---------------------+
+               |              ^
+               v              |
++---------------------+   +---------------------+
+|    Data Logger      |<--| Message Queue       |
+| (Logs temperature)  |   | (IPC mechanism)     |
++---------------------+   +---------------------+
+               ^
+               |
++---------------------+
+| Interrupt Handlers  |
+| (Timer, Button ISR) |
++---------------------+
 
 ---
 
@@ -96,7 +129,7 @@ make
 ./rtos
 ```
 
-## Shell / Command Line Interface (CLI) Usage:
+## Shell / Command Line Interface (CLI)
 
 help                       - Show help
 list                       - List all tasks and their state
@@ -136,6 +169,9 @@ clear                      - Clear terminal screen
 - Implement nested interrupts and interrupt priorities
 
 - Task stack usage simulation and simulated per-task memory limits
+
+## 📜 License
+This project is licensed under the MIT License.
 
 - Export log to file / CSV
 
