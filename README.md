@@ -25,13 +25,12 @@
 - [Why this project](#why-this-project)  
 - [Features](#features)  
 - [Architecture & design](#architecture--design)  
-- [Build & run (quickstart)](#build--run-quickstart)  
+- [Build & run](#build--run)  
 - [Shell / Command Line Interface](#shell--command-line-interface)  
 - [Example session](#example-session)  
 - [Tests and CI](#tests-and-ci)  
 - [Project structure](#project-structure)  
 - [Limitations & future work](#limitations--future-work)  
-- [Contributing](#contributing)  
 - [License](#license)  
 
 
@@ -109,7 +108,7 @@ High-level components:
 | Interrupt Handlers  |
 | (Timer, Button ISR) |
 +---------------------+
-
+```
 ---
 
 ## Build & Run
@@ -129,7 +128,7 @@ make
 ./rtos
 ```
 
-## Shell / Command Line Interface (CLI)
+## Shell / Command Line Interface
 
 help                       - Show help
 list                       - List all tasks and their state
@@ -145,13 +144,30 @@ status                     - Print detailed system status
 clear                      - Clear terminal screen
 
 ### Example session
-
+``` bash
 [SHELL] >>> help
 [SHELL] >>> send Hello from RTOS
 [SHELL] >>> log show
 [SHELL] >>> trigger_interrupt 0
 [SHELL] >>> status
+```
+### Example output
+``` bash
+===== RTOS Booting =====
+[KERNEL] Task Created: ID=0 | Name=Sensor_Reader | Priority=1
+[KERNEL] Task Created: ID=1 | Name=Logger | Priority=1
+[KERNEL] Task Created: ID=2 | Name=LED_Blinker | Priority=1
+[KERNEL] Task Created: ID=3 | Name=ShellTask | Priority=2
 
+[TICK 0]
+[SCHEDULER] Running task: ShellTask (Priority: 2)
+[SHELL] >> list
+Task[0]: Sensor_Reader | State: READY | Priority: 1
+Task[1]: Logger        | State: READY | Priority: 1
+Task[2]: LED_Blinker   | State: READY | Priority: 1
+Task[3]: ShellTask     | State: RUNNING | Priority: 2
+
+```
 ---
 
 ## Limitations & future work
