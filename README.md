@@ -1,6 +1,7 @@
 # Embedded RTOS Simulator — C
 
-[![Build](https://img.shields.io/badge/build-passing-brightgreen)](https://github.com/hitesh-bhatnagar/Embedded-RTOS-Simulator-C-Learning-Project)
+![Build Status](https://github.com/hitesh-bhatnagar/Embedded-RTOS-Simulator-C-Learning-Project/actions/workflows/ci.yml/badge.svg)
+
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Language](https://img.shields.io/badge/language-C-555.svg)](#)
 
