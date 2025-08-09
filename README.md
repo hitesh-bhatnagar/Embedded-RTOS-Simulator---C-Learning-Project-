@@ -28,8 +28,7 @@
 - [Build & run](#build--run)  
 - [Shell / Command Line Interface](#shell--command-line-interface)  
 - [Example session](#example-session)  
-- [Tests and CI](#tests-and-ci)  
-- [Project structure](#project-structure)  
+- [Tests & Continuous Integration](#tests--continuous-integration)  
 - [Limitations & future work](#limitations--future-work)  
 - [License](#license)  
 
@@ -170,6 +169,42 @@ Task[3]: ShellTask     | State: RUNNING | Priority: 2
 ```
 ---
 
+## Tests & Continuous Integration
+
+This project uses **GitHub Actions** for automated Continuous Integration (CI).  
+Every time code is pushed or a pull request is opened, GitHub automatically:
+
+- **Builds** the RTOS Simulator on a fresh environment  
+- **Verifies** that all files compile without errors or warnings  
+- **Confirms** that the build completes successfully on Linux  
+
+---
+
+### 📌 CI Status  
+![CI Status](https://github.com/hitesh-bhatnagar/Embedded-RTOS-Simulator-C-Learning-Project/actions/workflows/ci.yml/badge.svg)
+
+---
+
+### 📂 How It Works  
+- The workflow file is located in `.github/workflows/ci.yml`  
+- It runs the build using GCC inside a Linux runner  
+- Any compilation failure will **break the build** and mark the commit as ❌  
+
+---
+
+### ▶️ Running Locally  
+If you want to check the build on your own system:  
+
+```bash
+# Build the RTOS Simulator
+gcc -o rtos src/*.c -Iinclude
+
+# Run the simulator
+./rtos
+```
+
+---
+
 ## Limitations & future work
 
 ### Limitations
@@ -186,7 +221,7 @@ Task[3]: ShellTask     | State: RUNNING | Priority: 2
 
 - Task stack usage simulation and simulated per-task memory limits
 
-## 📜 License
+## License
 This project is licensed under the MIT License.
 
 - Export log to file / CSV
