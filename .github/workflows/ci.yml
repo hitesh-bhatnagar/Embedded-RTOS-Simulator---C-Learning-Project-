@@ -1,0 +1,35 @@
+name: Build and Test RTOS Simulator
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Install dependencies (Ubuntu)
+      if: runner.os == 'Linux'
+      run: sudo apt-get install -y make gcc
+    
+    - name: Install dependencies (Windows)
+      if: runner.os == 'Windows'
+      run: |
+        choco install make
+        choco install mingw
+    
+    - name: Build
+      run: make
+
+    - name: Smoke Test
+      run: |
+        ./rtos &
+        sleep 2
