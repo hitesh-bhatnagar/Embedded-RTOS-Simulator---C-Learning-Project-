@@ -1,7 +1,8 @@
 # Embedded RTOS Simulator — C
 
-[![Build](https://img.shields.io/github/actions/workflow/status/<GITHUB_USER>/<REPO>/ci.yml?branch=main)](https://github.com/<GITHUB_USER>/<REPO>/actions)
+[![Build](https://img.shields.io/badge/build-passing-brightgreen)](https://github.com/hitesh-bhatnagar/Embedded-RTOS-Simulator-C-Learning-Project)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Language](https://img.shields.io/badge/language-C-555.svg)](#)
 
 > **Embedded RTOS Simulator** — small, realistic RTOS kernel written in C for learning and interviews.  
 > Implements a preemptive priority scheduler, message queues (strings), semaphores, simulated UART, shell CLI, timer & interrupt simulation, logging and diagnostics — no hardware required.
@@ -10,42 +11,31 @@
 
 ## Table of Contents
 
-- [Demo](#demo)
-- [Why this project](#why-this-project)
-- [Features](#features)
-- [Architecture](#architecture)
-- [Build & Run](#build--run)
-- [Shell / CLI Usage](#shell--cli-usage)
-- [Example Session](#example-session)
-- [Testing & CI](#testing--ci)
-- [Project Structure](#project-structure)
-- [How to record the demo GIF](#how-to-record-the-demo-gif)
-- [Contributing](#contributing)
-- [License](#license)
-- [Resume blurb](#resume-blurb)
+- [Why this project](#why-this-project)  
+- [Features](#features)  
+- [Architecture & design](#architecture--design)  
+- [Build & run (quickstart)](#build--run-quickstart)  
+- [Shell / CLI commands](#shell--cli-commands)  
+- [Example session](#example-session)  
+- [Tests and CI](#tests-and-ci)  
+- [Project structure](#project-structure)  
+- [Limitations & future work](#limitations--future-work)  
+- [Contributing](#contributing)  
+- [License](#license)  
+- [Resume blurb](#resume-blurb)  
+- [Contact](#contact)
 
 ---
 
-## Demo
-
-Place a short animated demo GIF here — `docs/demo.gif` (example: shell usage, send, log show, trigger_interrupt).  
-Example embed:
-
-![Demo GIF](docs/demo.gif)
-
-(If you don’t have a GIF yet, follow the recording instructions below.)
-
----
 
 ## Why this project
 
-This project is designed to teach you kernel and RTOS concepts by doing — not just reading. It demonstrates the practical mechanics used in real products (FreeRTOS, Zephyr, embedded Linux) while staying small enough to inspect and modify quickly.
+This repository is built to teach the core concepts of operating systems and real-time embedded software through a hands-on, incremental approach:
 
-Use it to:
-- Learn task scheduling, semaphores, queues, ISRs
-- Demonstrate embedded skills in interviews
-- Prototype algorithms that will later move to MCU code (STM32/ARM, AVR, 8051)
-
+- Learn how kernels schedule tasks and handle concurrency
+- Understand interrupts, ISRs and how they wake tasks
+- Practice writing firmware-style C (no OS abstractions)
+  
 ---
 
 ## Features
@@ -85,7 +75,6 @@ High-level components:
 - **IPC**: circular queue for string messages
 - **Shell**: user-facing CLI to control runtime
 
-See `docs/architecture.png` for a diagram (draw with PlantUML or draw.io).
 
 ---
 
@@ -93,12 +82,14 @@ See `docs/architecture.png` for a diagram (draw with PlantUML or draw.io).
 
 ### Prerequisites
 
-- **Linux / macOS**: `gcc`, `make`, `python` (optional)
-- **Windows (MSYS2)**: use `pacman -Syu` then `pacman -S base-devel gcc make`
+- **Linux / macOS**: `gcc`, `make`
+- Windows: MSYS2 with `base-devel`, `gcc`, `make`
 
 ### Build
 
 ```bash
+git clone https://github.com/hitesh-bhatnagar/Embedded-RTOS-Simulator-C-Learning-Project.git
+cd Embedded-RTOS-Simulator-C-Learning-Project
 make clean
 make
 ./rtos
@@ -116,7 +107,6 @@ resume <taskId>            - Resume (READY) a task
 kill <taskId>              - Terminate a task
 trigger <taskId>           - Manually set a task READY
 trigger_interrupt <id>     - Call registered ISR (simulate button/timer)
-set threshold <val>        - Change overheat threshold for monitor
 status                     - Print detailed system status
 clear                      - Clear terminal screen
 
@@ -127,3 +117,27 @@ clear                      - Clear terminal screen
 [SHELL] >>> log show
 [SHELL] >>> trigger_interrupt 0
 [SHELL] >>> status
+
+---
+
+## Limitations & future work
+
+### Limitations
+
+- This is a simulation running on a host OS — not a real microcontroller. Timing and power states are approximated.
+
+- No actual context switching of CPU registers is performed (we call task functions directly).
+
+- No stack/heap per task simulation (can be added later).
+
+### Planned / nice-to-have
+
+- Implement nested interrupts and interrupt priorities
+
+- Task stack usage simulation and simulated per-task memory limits
+
+- Export log to file / CSV
+
+- Add a small unit-test harness for modules
+
+- Port demo tasks to run on a microcontroller (STM32/ESP32) as follow-up project
